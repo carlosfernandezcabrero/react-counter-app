@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks'
+import { act, renderHook } from '@testing-library/react-hooks'
 import { useCounter } from 'hooks/useCounter'
 import { describe, expect, test } from 'vitest'
 
@@ -15,7 +15,9 @@ describe('Pruebas sobre el hook useCounter', () => {
     const { result } = renderHook(() => useCounter(10))
     const { increment } = result.current
 
-    increment(2)
+    act(() => {
+      increment(2)
+    })
 
     const { counterValue } = result.current
 
@@ -26,7 +28,9 @@ describe('Pruebas sobre el hook useCounter', () => {
     const { result } = renderHook(() => useCounter(10))
     const { decrement } = result.current
 
-    decrement(2)
+    act(() => {
+      decrement(2)
+    })
 
     const { counterValue } = result.current
 
@@ -38,8 +42,10 @@ describe('Pruebas sobre el hook useCounter', () => {
     const { result } = renderHook(() => useCounter(expected))
     const { increment, reset } = result.current
 
-    increment(2)
-    reset()
+    act(() => {
+      increment(2)
+      reset()
+    })
 
     const { counterValue } = result.current
 
