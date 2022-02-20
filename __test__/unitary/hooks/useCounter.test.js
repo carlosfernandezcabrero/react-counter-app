@@ -2,53 +2,46 @@ import { act, renderHook } from '@testing-library/react-hooks'
 import { useCounter } from 'hooks/useCounter'
 import { describe, expect, test } from 'vitest'
 
+const setup = (initialValue) => renderHook(() => useCounter(initialValue))
+
 describe('Pruebas sobre el hook useCounter', () => {
   test('debe poner como valor inicial el que se le pasa al invocar al hook', () => {
     const expected = 10
 
-    const { counterValue } = renderHook(() => useCounter(expected)).result.current
+    const { result } = setup(expected)
 
-    expect(counterValue).toBe(expected)
+    expect(result.current.counterValue).toBe(expected)
   })
 
   test('debe incrementar en tantas unidades como el factor que se pase por parámetro', () => {
-    const { result } = renderHook(() => useCounter(10))
-    const { increment } = result.current
+    const { result } = setup(10)
 
     act(() => {
-      increment(2)
+      result.current.increment(2)
     })
 
-    const { counterValue } = result.current
-
-    expect(counterValue).toBe(12)
+    expect(result.current.counterValue).toBe(12)
   })
 
   test('debe decrementar en tantas unidades como el factor que se pase por parámetro', () => {
-    const { result } = renderHook(() => useCounter(10))
-    const { decrement } = result.current
+    const { result } = setup(10)
 
     act(() => {
-      decrement(2)
+      result.current.decrement(2)
     })
 
-    const { counterValue } = result.current
-
-    expect(counterValue).toBe(8)
+    expect(result.current.counterValue).toBe(8)
   })
 
   test('debe restablecer el valor del contador al pasado inicialmente', () => {
     const expected = 10
-    const { result } = renderHook(() => useCounter(expected))
-    const { increment, reset } = result.current
+    const { result } = setup(expected)
 
     act(() => {
-      increment(2)
-      reset()
+      result.current.increment(2)
+      result.current.reset()
     })
 
-    const { counterValue } = result.current
-
-    expect(counterValue).toBe(expected)
+    expect(result.current.counterValue).toBe(expected)
   })
 })
