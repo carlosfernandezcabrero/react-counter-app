@@ -2,4 +2,4 @@
 
 ## Descripción
 
-Aplicación creada para poner en practica loas diferentes tipos de tests en el frontend.
+Aplicación creada para poner en practica los diferentes tipos de tests en el frontend.
